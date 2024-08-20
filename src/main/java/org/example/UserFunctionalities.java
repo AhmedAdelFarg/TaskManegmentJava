@@ -97,5 +97,38 @@ public class UserFunctionalities {
             e.printStackTrace();
         }
     }
+    public void ViewAllUsers()
+    {
+        Connection connection = null;
+        try {
+            // Establish the connection
+            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+
+            String query = "SELECT id, FirstName, LastName   ,Age from UserProfile ";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String firstName = resultSet.getString("FirstName");
+                String lastName = resultSet.getString("LastName");
+                int Age = resultSet.getInt("Age");
+                System.out.println("User ID: " + id + ", First Name: " + firstName + ", Last Name: " + lastName + ", Age "+Age);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error connecting to PostgreSQL database");
+            e.printStackTrace();
+        } finally {
+            // Close the connection
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
 }
