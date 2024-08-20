@@ -88,9 +88,13 @@ public class App
                 }
             }
             else if (accountOption==2) {
-                System.out.print("Enter First Name: ");
+                System.out.print("Enter id: ");
+
                 int id = scanner.nextInt();
+                System.out.print("Enter First Name: ");
+
                 String firstName = scanner.nextLine();
+
                 System.out.print("Enter Last Name: ");
                 String lastName = scanner.nextLine();
                 System.out.print("Enter Age: ");
