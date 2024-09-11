@@ -6,6 +6,7 @@ public class UserProfile {
 	private int age , id;
 	public UserProfile(int id , String FirstName , String LastName , int age)
 	{
+		this.id = id;
 		this.FirstName = FirstName;
 		this.LastName = LastName;
 		this.age = age;

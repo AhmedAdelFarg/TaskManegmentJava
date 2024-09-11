@@ -6,15 +6,13 @@ import java.sql.SQLException;
 import java.sql.*;
 import java.time.LocalDate;
 public class UserFunctionalities {
-    private static final String URL = "jdbc:postgresql://localhost:5432/TaskManagement";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "levi_ackerman";
+
 
 
     public void AddUser(UserProfile userProfile) {
         String insertQuery = "INSERT INTO UserProfile (id, FirstName, LastName, Age) VALUES (?, ?, ?, ?)";
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        try (Connection connection = ConnectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
             preparedStatement.setInt(1, userProfile.getId());
@@ -35,7 +33,7 @@ public class UserFunctionalities {
     {
         String insertQuery = "INSERT INTO Task (id ,  description  ,  from_date , to_date ,  status , category_name ,  category_id , user_id) VALUES (?, ?, ?, ? , ? , ? , ? , ?)";
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        try (Connection connection = ConnectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
             preparedStatement.setInt(1, task.getId());
@@ -62,7 +60,7 @@ public class UserFunctionalities {
     }
     public void DelteTask(int taskid , int user_id){
         String insertQuery = "delete from Task where id = ? and user_id = ?";
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        try (Connection connection = ConnectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
             preparedStatement.setInt(1 , taskid);
             preparedStatement.setInt(2 ,user_id );
@@ -81,7 +79,7 @@ public class UserFunctionalities {
     public void UpdateStatus(int taskid , int userid , Status newstatus)
     {
         String insertQuery = " update Task set status = ? where id = ? and user_id = ?";
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        try (Connection connection = ConnectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
             preparedStatement.setString(1 , newstatus.name());
             preparedStatement.setInt(2 ,taskid);
@@ -102,7 +100,7 @@ public class UserFunctionalities {
         Connection connection = null;
         try {
             // Establish the connection
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            connection =ConnectionManager.getConnection();
 
             String query = "SELECT id, FirstName, LastName   ,Age from UserProfile ";
             PreparedStatement preparedStatement = connection.prepareStatement(query);

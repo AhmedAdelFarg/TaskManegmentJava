@@ -1,19 +1,16 @@
 package org.example;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class categoryFunctionalities {
-    private static final String URL = "jdbc:postgresql://localhost:5432/TaskManagement";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "levi_ackerman";
+
     public void craeteCategory(Category category)
     {
         String insertQuery = "INSERT INTO category (id, name) VALUES ( ?, ?)";
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        try (Connection connection =  ConnectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
             preparedStatement.setInt(1,category.getId() );

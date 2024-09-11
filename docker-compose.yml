@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  java-app:
+    image: openjdk:17
+    container_name: java_app
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app/target
+    command: ["java", "-jar", "TaskManegment-1.0-SNAPSHOT.jar"]
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: "TaskManagement"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "levi_ackerman"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+volumes:
+  postgres_data:

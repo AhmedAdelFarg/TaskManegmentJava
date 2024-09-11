@@ -92,7 +92,7 @@ public class App
 
                 int id = scanner.nextInt();
                 System.out.print("Enter First Name: ");
-
+                scanner.nextLine();
                 String firstName = scanner.nextLine();
 
                 System.out.print("Enter Last Name: ");
